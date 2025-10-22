@@ -83,8 +83,9 @@ const Checkout = () => {
 
       if (itemsError) throw itemsError;
 
-      clearCart();
-      navigate(`/order-confirmation/${order.id}`);
+      // Navigate first, then clear cart to avoid re-render issues
+      navigate(`/order-confirmation/${order.id}`, { replace: true });
+      setTimeout(() => clearCart(), 100);
     } catch (error) {
       console.error('Checkout error:', error);
       toast({
